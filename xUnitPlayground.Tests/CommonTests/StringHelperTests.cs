@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
 using xUnitPlayground.Library.Common;
 
 namespace xUnitPlayground.Tests.CommonTests
@@ -17,10 +13,13 @@ namespace xUnitPlayground.Tests.CommonTests
         [InlineData("to jest test", "test jest to")]
         public void ReverseWords_SomeString_ReturnsReversedWordsInString(string input, string expected)
         {
-            //Arrange
+            //Arrange -> from parameters
             //Act
+            var result = StringHelper.ReverseWords(input);
             //Assert
-            Assert.Equal(expected, StringHelper.ReverseWords(input));
+            //Assert.Equal(expected, result);
+            //or 
+            result.Should().Be(expected);
         }
 
         [Theory]
@@ -28,13 +27,13 @@ namespace xUnitPlayground.Tests.CommonTests
         [InlineData("ala", true)]
         [InlineData("Ala", false)]
         [InlineData("", true)]
-
         public void IsPalindrome_SomeString_ReturnsExpectedResult(string input, bool expected)
         {
             //Arrange
             //Act
+            var result = StringHelper.IsPalindrome(input);
             //Assert
-            Assert.Equal(expected, StringHelper.IsPalindrome(input));
+            result.Should().Be(expected);
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
+using Xunit.Abstractions;
 using xUnitPlayground.Library.Bmi;
 using xUnitPlayground.Library.Model;
 
@@ -7,6 +8,12 @@ namespace xUnitPlayground.Tests.BmiTests
 {
     public class BmiCalculatorFacadeTests
     {
+        private readonly ITestOutputHelper _outputHelper;
+
+        public BmiCalculatorFacadeTests(ITestOutputHelper outputHelper) { 
+            _outputHelper = outputHelper;
+        }
+
         private const string Normal_Summary = "Normal";
         private const string Overweight_Summary = "Overweight";
         private const string Obesity_Summary = "Obesity";
@@ -37,6 +44,9 @@ namespace xUnitPlayground.Tests.BmiTests
         public void GetResultWithFluentAssertionsAndMoq_ForValidInput_ReturnsExpectedSummary(BmiClassification classification, string summary)
         {
             //Arrange
+            _outputHelper.WriteLine("Sample output from GetResultWithFluentAssertionsAndMoq_ForValidInput_ReturnsExpectedSummary");
+            _outputHelper.WriteLine($"Tested values: \n Classification: {classification}\n Summary: {summary}");
+
             var bmiDeterminatorMock = new Mock<IBmiDeterminator>();
             bmiDeterminatorMock
                     .Setup(x => x.DetermineBmi(It.IsAny<double>()))

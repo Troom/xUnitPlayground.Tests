@@ -1,4 +1,6 @@
 ﻿using xUnitPlayground.Library.Calculators;
+using xUnitPlayground.Tests.xUnitPlayground.Tests.BmiTests.TestData;
+using xUnitPlayground.Tests.xUnitPlayground.Tests.Helpers;
 
 namespace xUnitPlayground.Tests.BmiTests
 {
@@ -44,5 +46,31 @@ namespace xUnitPlayground.Tests.BmiTests
             //Assert
             Assert.Equal(exptected, result);
         }
+
+        [Theory]
+        [ClassData(typeof(MetricBmiCalculatorTestsData))]
+        public void CalculateBmiFromJson_WithProperInput_ReturnsExpectedOutput(double weight, double height, double exptected)
+        {
+            //Arrange
+            MetricBmiCalculator calculator = new MetricBmiCalculator();
+            //Act
+            var result = calculator.CalculateBmi(weight, height);
+            //Assert
+            Assert.Equal(exptected, result);
+        }
+
+
+        [Theory]
+        [JsonDataFile("xUnitPlayground.Tests/BmiTests/TestData/MetricBmiCalculatorTestsData.json")]
+        public void CalculateBmiFromJsons_WithProperInput_ReturnsExpectedOutput(double weight, double height, double exptected)
+        {
+            //Arrange
+            MetricBmiCalculator calculator = new MetricBmiCalculator();
+            //Act
+            var result = calculator.CalculateBmi(weight, height);
+            //Assert
+            Assert.Equal(exptected, result);
+        }
+
     }
 }
